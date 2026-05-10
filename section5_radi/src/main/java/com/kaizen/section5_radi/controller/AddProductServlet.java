@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-@WebServlet("/add-product")
+@WebServlet("/admin/add-product")
 public class AddProductServlet extends HttpServlet {
     private ProductService productService;
     public AddProductServlet(){
