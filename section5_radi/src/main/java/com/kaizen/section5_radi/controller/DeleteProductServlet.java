@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.SQLException;
-@WebServlet("/delete-product")
+@WebServlet("/admin/delete-product")
 public class DeleteProductServlet extends HttpServlet {
     private ProductService productService;
     public DeleteProductServlet(){
