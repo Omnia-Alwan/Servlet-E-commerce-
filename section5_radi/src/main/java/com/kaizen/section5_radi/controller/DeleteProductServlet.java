@@ -26,6 +26,7 @@ public class DeleteProductServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
         if (deleted) {
+            request.setAttribute("Message","Product deleted successfully" );
             System.out.println("Product deleted successfully");
         }else{
             System.out.println("Failed to delete product");
