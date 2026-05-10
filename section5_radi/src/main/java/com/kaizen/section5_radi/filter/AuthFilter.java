@@ -1,6 +1,5 @@
 package com.kaizen.section5_radi.filter;
 
-import com.kaizen.section5_radi.model.User;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.Cookie;
