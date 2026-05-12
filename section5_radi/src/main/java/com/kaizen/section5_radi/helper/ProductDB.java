@@ -35,7 +35,6 @@ public class ProductDB {
         String cached = jedis.get("products");
         if (cached != null) {
             System.out.println(">>> FROM REDIS CACHE");
-
             Type type = new TypeToken<ArrayList<Product>>() {
             }.getType();
 

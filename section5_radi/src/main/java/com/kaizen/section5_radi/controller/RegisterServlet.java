@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
@@ -23,7 +24,13 @@ public class RegisterServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         //System.out.println(username + password + confirmedPassword + email + phone + address  );
-        boolean registered= userService.registerUser(username, email, password, confirmedPassword, phone, address);
+        boolean registered= false;
+        try {
+            registered = userService.registerUser(username, email, password, confirmedPassword, phone, address);
+        } catch (SQLException e) {
+            System.out.println("failed to register");
+            throw new RuntimeException(e);
+        }
         if(registered){
             System.out.println("User registered successfully, redirect to login page");
             response.sendRedirect("login.jsp");

@@ -9,7 +9,7 @@ import redis.clients.jedis.Jedis;
 
 import java.io.IOException;
 
-@WebFilter("/*")
+@WebFilter(value = "/*", filterName = "AuthFilter")
 public class AuthFilter implements Filter {
 
     @Override

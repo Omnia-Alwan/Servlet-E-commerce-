@@ -1,6 +1,7 @@
 package com.kaizen.section5_radi.dao;
 
 import com.kaizen.section5_radi.model.Product;
+import com.kaizen.section5_radi.model.Role;
 import com.kaizen.section5_radi.model.User;
 
 import java.sql.*;
@@ -11,13 +12,14 @@ public class UserDao {
     private String username= "root";
     private String password= "Sillysql1!";
 
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(url,username,password);
     }
 
 
     public User findByEmailAndPassword(String email, String password) throws SQLException, ClassNotFoundException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
+
         try(Connection connection= getConnection();
             PreparedStatement ps = connection.prepareStatement(
                     "SELECT * FROM user WHERE email=? AND password=?")) {
@@ -47,13 +49,15 @@ public class UserDao {
             ps.setString(1, email);
 
             ResultSet rs = ps.executeQuery();
-            User user = null;
+            User user = new User();
             while(rs.next()){
+                user.setId(rs.getInt("id"));
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phone"));
                 user.setAddress(rs.getString("address"));
+                user.setRole(Role.valueOf(rs.getString("role")));
             }
             return user;
         }
@@ -95,7 +99,7 @@ public class UserDao {
             return affectedRows>0;
         }
         }
-    public boolean deleteById(int userId) throws SQLException{
+    public boolean deleteById(int userId) throws SQLException, ClassNotFoundException {
         try(Connection connection= getConnection();
             PreparedStatement ps = connection.prepareStatement("DELETE FROM user WHERE id=?")){
             ps.setInt(1, userId);
@@ -103,7 +107,7 @@ public class UserDao {
             return affectedRows>0;
         }
     }
-    public boolean emailExists(String email) throws SQLException{
+    public boolean emailExists(String email) throws SQLException, ClassNotFoundException {
         try(Connection connection= getConnection();
         PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) FROM user WHERE email=?")){
             ps.setString(1, email);

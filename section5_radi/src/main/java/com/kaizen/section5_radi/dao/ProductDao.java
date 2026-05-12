@@ -11,11 +11,12 @@ public class ProductDao {
     private String username= "root";
     private String password= "Sillysql1!";
 
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(url,username,password);
     }
     public boolean saveProduct(Product product) throws SQLException, ClassNotFoundException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
+
 
         try(Connection connection= getConnection();
             PreparedStatement ps = connection.prepareStatement(
@@ -28,7 +29,7 @@ public class ProductDao {
             return affectedRows>0;
         }
     }
-    public boolean deleteById(int productId) throws SQLException{
+    public boolean deleteById(int productId) throws SQLException, ClassNotFoundException {
 
         try(Connection connection= getConnection();
             PreparedStatement ps = connection.prepareStatement("DELETE FROM product WHERE id=?")){
@@ -37,7 +38,7 @@ public class ProductDao {
             return affectedRows>0;
         }
     }
-    public Product getProductById(int productId) throws SQLException {
+    public Product getProductById(int productId) throws SQLException, ClassNotFoundException {
         try(Connection connection= getConnection();
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM product WHERE id=?")) {
             ps.setInt(1, productId);
@@ -53,7 +54,7 @@ public class ProductDao {
             return product;
         }
     }
-    public List<Product> getAllProducts() throws SQLException {
+    public List<Product> getAllProducts() throws SQLException, ClassNotFoundException {
         try(Connection connection= getConnection();
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM product")) {
             ResultSet rs = ps.executeQuery();

@@ -7,11 +7,31 @@ public class Review {
     private String body;
     private int stars;
     private int userId;
+    private String username;
     private int productId;
     private LocalDate createdAt;
 
-    public Review(int id, String body, int stars, int userId, int productId) {
+    public Review() {}
+    public Review(int id, String body, int stars,String username, int userId, int productId) {
         this.id = id;
+        this.body = body;
+        this.stars = stars;
+        this.userId = userId;
+        this.username = username;
+        this.productId = productId;
+        this.createdAt = LocalDate.now();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Review(String body, int stars, int userId, int productId) {
+
         this.body = body;
         this.stars = stars;
         this.userId = userId;

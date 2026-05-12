@@ -6,9 +6,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import redis.clients.jedis.Jedis;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -21,13 +23,25 @@ public class deleteServlet extends HttpServlet {
         this.userService = new UserService();
     }
     @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        String email=request.getAttribute("email").toString();
 
-        String sid= request.getParameter("id");
-        int id=Integer.parseInt(sid);
         try {
-            if (userService.deleteUserById(id)){
+            if (userService.deleteUserByEmail(email)){
+                String sessionId;
+                for(Cookie c: request.getCookies()){
+                    if(c.getName().equals("SESSION_ID")){
+                        sessionId = c.getValue();
+
+                        Jedis jedis = new Jedis("localhost", 6379);
+                        jedis.del("session:" + sessionId);
+
+                        c.setMaxAge(0);
+                        response.addCookie(c);
+                        c.setPath("/");
+                    }
+                }
                 System.out.println("User deleted successfully");
                 response.sendRedirect(request.getContextPath() + "/login.jsp");
             }

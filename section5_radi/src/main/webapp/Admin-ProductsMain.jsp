@@ -12,13 +12,14 @@
 <body>
     <h2 align="center">Our Products</h2>
     <div align="center">
-
+        <a href="add-product.jsp">Add New Product (Admin)</a> |
         <a href="logout">Logout</a>
+
     </div>
     <form action="delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this account?')">
-            <input type="hidden" name="_method" value="DELETE">
-            <button type="submit" class="delete-btn">Delete My Account</button>
-        </form>
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="delete-btn">Delete My Account</button>
+    </form>
     <hr>
 
     <div style="display: flex; flex-wrap: wrap; justify-content: center;">
@@ -32,6 +33,11 @@
                 <br><br>
 
 
+                <form action="${pageContext.request.contextPath}/admin/delete-product" method="POST" onsubmit="return confirm('Are you sure?')">
+                    <input type="hidden" name="id" value="${item.id}">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
             </div>
         </c:forEach>
     </div>

@@ -31,22 +31,26 @@ public class LoginServlet extends HttpServlet {
 
                 redis.clients.jedis.Jedis jedis =
                         new redis.clients.jedis.Jedis("localhost", 6379); //connect to redis
-                //set session with session:sessionId as key and email as value in redis
-                jedis.setex("session:" + sessionId, 300, email);
+                //set session:sessionId as key and email as value in redis
+                jedis.setex("session:" + sessionId, 500, email);
 
                 //create cookie with sessionId
                 Cookie cookie = new Cookie("SESSION_ID", sessionId);
                 //cookie is sent by browser to all pages
                 cookie.setPath("/");
-                //attach cookie to response
+                //attach cookie to response -> server sends cookie to client
                 response.addCookie(cookie);
-                //redirect to ProductsMain
-                response.sendRedirect("ProductsMain");
+                //redirect to ProductsMain based on role
+                if (userService.isAdmin(email)) {
+                    response.sendRedirect(request.getContextPath() + "/ProductsMain");
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/ProductsMain");
+                }
 
             } else {
                 response.setStatus(401);
-                request.getRequestDispatcher("login.jsp").forward(request, response);
                 response.getWriter().println("INVALID USER");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
 
         } catch (Exception e) {

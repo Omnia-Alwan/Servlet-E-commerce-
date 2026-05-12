@@ -20,7 +20,7 @@ public class UserService {
     public UserService(){
         this.userDao= new UserDao();
     }
-    public boolean registerUser(String username, String email, String password, String confirmPassword, String phone, String address){
+    public boolean registerUser(String username, String email, String password, String confirmPassword, String phone, String address) throws SQLException {
 
         if(phone.isEmpty() || address.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || username.isEmpty() || email.isEmpty()){
             throw new RuntimeException("No field should be empty");
@@ -34,27 +34,33 @@ public class UserService {
         if(!email.contains("@")){
             throw new RuntimeException("Invalid email must contain @");
         }
+
         User newUser= new User(username,email,password, phone, address, Role.AVG_USER);
         boolean saved= false;
         try {
             userDao.save(newUser);
             saved=true;
+            System.out.println("All good");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
+            System.out.println("Not so good");
             throw new RuntimeException(e);
         }
         return saved;
     }
 
-    public boolean deleteUserById(int id) throws SQLException, ClassNotFoundException {
-        User user= userDao.findById(id);
-        if(user.getId()==0){
+    public boolean deleteUserByEmail(String email) throws SQLException, ClassNotFoundException {
+        if(email == null || email.isEmpty()){
+            throw new SQLException("User email is invalid");
+        }
+        User user= userDao.findByEmail(email);
+        if (user == null) {
             throw new RuntimeException("User not found");
         }
         boolean deleted=false;
         try {
-            userDao.deleteById(id);
+            userDao.deleteById(user.getId());
             deleted=true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -75,5 +81,25 @@ public class UserService {
            return false;
        }
        return true;
+    }
+    public boolean isAdmin(String email) throws SQLException, ClassNotFoundException {
+        User user= userDao.findByEmail(email);
+        System.out.println("User Id: " + user.getId());
+        System.out.println("username: " + user.getUsername());
+        System.out.println("Email: " + user.getEmail());
+        System.out.println("Role: " + user.getRole().toString());
+        if(user.getRole() == Role.ADMIN){
+            return true;
+        }
+        return false;
+    }
+
+    public int getUserIdByEmail(String email) throws SQLException, ClassNotFoundException {
+        User user= userDao.findByEmail(email);
+        System.out.println("User Id: " + user.getId());
+        System.out.println("username: " + user.getUsername());
+        System.out.println("Email: " + user.getEmail());
+        System.out.println("Role: " + user.getRole().toString());
+        return user.getId();
     }
 }
