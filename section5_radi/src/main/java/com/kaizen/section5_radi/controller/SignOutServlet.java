@@ -14,16 +14,23 @@ public class SignOutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //get sessionId from cookie
         String sessionId = null;
-        for(Cookie c: request.getCookies()){
-            if(c.getName().equals("SESSION_ID")){
-                sessionId = c.getValue();
+        if(request.getCookies() != null) {
+            for (Cookie c : request.getCookies()) {
+                if (c.getName().equals("SESSION_ID")) {
+                    sessionId = c.getValue();
 
-                Jedis jedis = new Jedis("localhost", 6379);
-                jedis.del("session:" + sessionId);
+                    Jedis jedis = new Jedis("localhost", 6379);
+                    jedis.del("session:" + sessionId);
 
-                c.setMaxAge(0);
-                response.addCookie(c);
-                c.setPath("/");
+                    c.setMaxAge(0);
+                    response.addCookie(c);
+                    jedis.close();
+                }
+                if (c.getName().equals("REMEMBER_ME")) {
+                    c.setMaxAge(0);
+                    response.addCookie(c);
+                }
+
             }
         }
 

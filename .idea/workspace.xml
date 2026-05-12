@@ -5,33 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6c34333-13d7-46db-9446-9c556e5a3bba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/AddReviewServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/ProductReviewsServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/dao/ReviewDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/filter/AuthorizeFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/service/ReviewService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/section5_radi/src/main/webapp/Admin-ProductsMain.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/filter/RateLimitFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/DeleteProductServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/DeleteProductServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/ProductsMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/ProductsMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/RegisterServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/RegisterServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/ViewProductServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/ViewProductServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/deleteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/deleteServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/dao/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/dao/ProductDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/SignOutServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/controller/SignOutServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/filter/AuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/filter/AuthFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/helper/ProductDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/helper/ProductDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/model/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/model/Review.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/filter/AuthorizeFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/java/com/kaizen/section5_radi/filter/AuthorizeFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/section5_radi/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/webapp/add-product.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/webapp/add-product.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/webapp/display-products.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/webapp/display-products.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/section5_radi/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/webapp/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/webapp/product-details.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/webapp/product-details.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/section5_radi/src/main/webapp/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/section5_radi/src/main/webapp/register.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -43,14 +43,6 @@ public class AuthorizeFilter implements Filter {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        /*String path = request.getRequestURI()
-                .substring(request.getContextPath().length());
-
-        System.out.println("REQUEST: " + path);
-
-        if (path.contains("login.jsp") || path.contains("/login") || path.contains("register.jsp") || path.contains("/register")) {
-            chain.doFilter(request, response);
-            return;
-        }*/
+        /**/
     }
 }

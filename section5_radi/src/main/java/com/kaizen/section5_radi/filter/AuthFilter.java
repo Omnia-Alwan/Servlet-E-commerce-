@@ -1,5 +1,8 @@
 package com.kaizen.section5_radi.filter;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.Cookie;
@@ -49,23 +52,43 @@ public class AuthFilter implements Filter {
 
         // jwt
 
-       /* String token = request.getParameter("token");
 
-        if (token != null) {
-            try {
-                DecodedJWT jwt = JWT.require(Algorithm.HMAC256("secret"))
-                        .build()
-                        .verify(token);
-
-                user = jwt.getClaim("user").asString();
-
-            } catch (Exception e) {
-                user = null;
+        String token= null;
+        if(email==null && cookies != null) {
+            for (Cookie c : cookies) {
+                if ("REMEMBER_ME".equals(c.getName())) {
+                    token = c.getValue();
+                }
             }
-        }*/
+            if (token != null) {
+                try {
+                    DecodedJWT jwt = JWT.require(Algorithm.HMAC256("secret"))
+                            .build()
+                            .verify(token);
 
+                    email = jwt.getClaim("email").asString();
 
+                    //RECREATE SESSION
+                    if(email!=null) {
+                        //create session id
+                        sessionId = java.util.UUID.randomUUID().toString();
 
+                        redis.clients.jedis.Jedis jedis =
+                                new redis.clients.jedis.Jedis("localhost", 6379); //connect to redis
+                        //set session:sessionId as key and email as value in redis
+                        jedis.setex("session:" + sessionId, 500, email);
+                        //create cookie with sessionId
+                        Cookie cookie = new Cookie("SESSION_ID", sessionId);
+                        //cookie is sent by browser to all pages
+                        cookie.setPath("/");
+                        //attach cookie to response -> server sends cookie to client
+                        response.addCookie(cookie);
+                    }
+                } catch (Exception e) {
+                    email = null;
+                }
+            }
+        }
 
         if (email == null) {
             System.out.println("UNAUTHORIZED REQUEST: " + path);
@@ -74,6 +97,7 @@ public class AuthFilter implements Filter {
         }
         //save email to use later for rate limiting
         request.setAttribute("email", email);
+        //move to next filter
         chain.doFilter(request, response);
     }
 }

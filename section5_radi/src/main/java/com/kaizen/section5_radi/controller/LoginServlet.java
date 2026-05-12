@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -22,6 +24,7 @@ public class LoginServlet extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        boolean rememberMe = Boolean.parseBoolean(request.getParameter("remember"));
         System.out.println(email+" "+password);
         try {
             if (userService.validateUser(email, password)) {
@@ -40,6 +43,21 @@ public class LoginServlet extends HttpServlet {
                 cookie.setPath("/");
                 //attach cookie to response -> server sends cookie to client
                 response.addCookie(cookie);
+
+                if(rememberMe) {
+                    //TOKENS --> to remember me
+                    String token = JWT.create()
+                            .withClaim("email", email)
+                            .withExpiresAt(Instant.now().plusSeconds(30 * 24 * 60 * 60))
+                            .sign(Algorithm.HMAC256("secret")); // impo
+
+                    Cookie rememberCookie= new Cookie("REMEMBER_ME", token);
+                    rememberCookie.setPath("/");
+                    rememberCookie.setMaxAge(30 * 24 * 60 * 60);
+                    response.addCookie(rememberCookie);
+                }
+
+
                 //redirect to ProductsMain based on role
                 if (userService.isAdmin(email)) {
                     response.sendRedirect(request.getContextPath() + "/ProductsMain");
@@ -58,46 +76,3 @@ public class LoginServlet extends HttpServlet {
         }
     }
 }
-/*
-protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-    String email = request.getParameter("email");
-    String password = request.getParameter("password");
-    System.out.println(email+" "+password);
-    try {
-        if (userService.validateUser(email, password)) {
-            // session
-//                String sessionId = java.util.UUID.randomUUID().toString();
-//
-//                redis.clients.jedis.Jedis jedis =
-//                        new redis.clients.jedis.Jedis("localhost", 6379);
-//
-//                jedis.setex("session:" + sessionId, 300, username);
-//
-//                Cookie cookie = new Cookie("SESSION_ID", sessionId);
-//                cookie.setPath("/");
-//                response.addCookie(cookie);
-
-            response.sendRedirect("ProductsMain");
-
-
-            // jwt
-
-//                String token = JWT.create()
-//                        .withClaim("user", username)
-//                        .sign(Algorithm.HMAC256("secret")); // impo
-//
-//
-//                response.sendRedirect("ProductsMain?token=" + token);
-
-        } else {
-            response.setStatus(401);
-            response.getWriter().println("INVALID USER");
-        }
-
-    } catch (Exception e) {
-        throw new RuntimeException(e);
-    }
-}
-}
-*/
