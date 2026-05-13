@@ -23,17 +23,25 @@ public class SignOutServlet extends HttpServlet {
                     jedis.del("session:" + sessionId);
 
                     c.setMaxAge(0);
+                    c.setPath("/");
                     response.addCookie(c);
                     jedis.close();
                 }
                 if (c.getName().equals("REMEMBER_ME")) {
                     c.setMaxAge(0);
+                    c.setPath("/");
                     response.addCookie(c);
+
                 }
 
             }
         }
-
+        System.out.println("=== COOKIES AFTER LOGOUT ===");
+        if (request.getCookies() != null) {
+            for (Cookie c : request.getCookies()) {
+                System.out.println(c.getName() + " = " + c.getValue() + ", path: " + c.getPath());
+            }
+        }
         System.out.println("You've been logged out");
         //redirect
         response.sendRedirect(request.getContextPath() + "/login.jsp");

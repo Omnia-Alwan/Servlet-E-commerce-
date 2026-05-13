@@ -67,7 +67,7 @@ public class LoginServlet extends HttpServlet {
 
             } else {
                 response.setStatus(401);
-                response.getWriter().println("INVALID USER");
+                request.setAttribute("error", "Invalid email or password");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
 

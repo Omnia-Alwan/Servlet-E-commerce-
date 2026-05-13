@@ -41,6 +41,11 @@ public class deleteServlet extends HttpServlet {
                         response.addCookie(c);
                         c.setPath("/");
                     }
+                    if (c.getName().equals("REMEMBER_ME")) {
+                        c.setMaxAge(0);
+                        c.setPath("/");
+                        response.addCookie(c);
+                    }
                 }
                 System.out.println("User deleted successfully");
                 response.sendRedirect(request.getContextPath() + "/login.jsp");
